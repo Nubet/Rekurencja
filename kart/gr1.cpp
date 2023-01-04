@@ -1,70 +1,65 @@
-#include <iostream> // zalaczanie biblioteki iostream
+#include <iostream> 
 
-//napisac program ktory bedzie wykonywal iteracyjnie i rekurencyjnie obliczenia z zastosowaniem funkcji
-//Grupa 1 (rekuracyjnie silnie), iteracyjnie (potegowanie)
 
-using namespace std; // uzywanie przestrzeni nazw
+//Grupa 1 REKURENCYJNIE - silnia, ITERACYJNIE  - potegowanie
 
-long long int poteguj_iteracyjnie(long long int liczba, long long int potega){ // deklarowanie funkcji zwracajacej wartosc typu long long int i przyjmujaca 2 wartosci
-    if(potega == 0)//warunek poczatkowy
-        return 1; // zwracanie 1
+using namespace std;
 
-    int liczba_podstawowa = liczba;
-    for(int i=1; i < potega; i++) // petla ktora wykonuje sie od 1 poniewaz bedzie mnozyc przez ta liczbe wiec jak by bylo 0 to caly zwracany wynik byl by zerem
-        liczba *= liczba_podstawowa; // liczba = liczba * liczba_podstawowa
-
-    return liczba;
-}
-long long int silnia_rekurencyjnie(long long int s)
+long long int silnia(long long liczba)
 {
-	if(s == 0) // warunek poczatkowy
+	if(liczba == 0) 
 		return 1;
 	
-	return s*silnia_rekurencyjnie(s-1); // silnia np z 5! => to 5 * 4!
+	return liczba*silnia(liczba-1);
 }
-void autor(){
-	cout << "=================================================" << endl;
-	cout << "\t Autorem programu jest Norbert Fila z 3ab " << endl;
+long long poteguj(long long liczba, int potega){ 
+    if(potega == 0)
+        return 1; 
+        
+    long long w = 1;
+    for (int i = 0; i < potega; i++)
+    {
+        w *= liczba;
+    }
+ 
+		
+    return w;
 }
+
+
 int main() {
-	int wybor;
-	autor(); // wywolywanie funkcji
-	while(true)//petla z warunkiem zawsze prawzdiwym
+	char znak_zadania;
+	int liczba, potega;
+	while(true)
 	{
-	cout << "Podaj [1] aby wykonac silnie metoda rekurencyjna " << endl;
-	cout << "Podaj [2] aby wykonac potegowanie metoda iteracyjna " << endl;
-	cout << "Wybor: ";
-	cin>>wybor; // wczytywanie danych od uzytkownika
-	switch(wybor)// switch operujacy na zmiennej wybor
-	{
-		case 1: // w przypadku gdy wybor == 1
+		cout << "Wprowadz 's' aby obliczyc silnie przy uzyciu metody rekurencyjnej " << endl;
+		cout << "Wprowadz 'p' aby wykonac potegowanie przy uzyciu metody iteracyjnej " << endl;
+		cin>>znak_zadania; 
+		switch(znak_zadania)
+		{
+			case 's': 
+				{
+					cout << "Podaj liczbe ktorej silnie mam wyznaczyc: ";
+					cin>>liczba;
+					cout << "Silnia z liczby: " << liczba << " wynosi: " << silnia(liczba) << endl;
+					break; 
+				}
+			case 'p':
 			{
-				int s;
-				cout << "Podaj liczbe z ktorej chcesz wyznaczyc silnie: ";
-				cin>>s;
-				if(s >=0 ) // Najmniejsza liczba z jakiej mozna wyznaczyc silnie to 0!
-					cout << "Silnia z liczby: " << s << " wynosi: " << silnia_rekurencyjnie(s) << endl;
-				else
-					cout << "Najmniejsza liczba z jakiej mozna wyznaczyc silnie to 0! " << endl;
-					
-				break; // gdyby nie break switch wykonal to co w case 2
-			}
-		case 2:
-			{
-				int liczba, potega;
-				cout << "Podaj liczbe jaka chcesz potegowac: ";
+	
+				cout << "Podaj liczbe ktora chcesz podniesc do potegi: ";
 				cin>>liczba;
-				cout << "Podaj liczbe do jakiej chcesz podniesc liczbe(" << liczba << "): ";
+				cout << "Podaj potege: ";
 				cin>>potega;
-				cout << "Liczba: " << liczba << " do potegi " << potega << " wynosi: " << poteguj_iteracyjnie(liczba, potega) << endl;
+				cout << liczba << "^" << potega << " = " << poteguj(liczba, potega) << endl;
 				break;
 			}
-		default: // gdy wybor != 1 || wybor != 2
+			default:
 			{
-				cout << "Podales bledny znak! " << endl;
+				cout << "Podaj 's' aby wykonac zad 1 albo podaj 'p' aby wykonac zad 2" << endl;
 				break;
 			}
-	}
+		}
 	}
 	
 	
